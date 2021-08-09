@@ -7,6 +7,8 @@ namespace Auth.Models
 
         public string Password { get; set; }
 
+        public string PasswordConfirmation {get; set;}
+
         public string Role { get; set; }
     }
 }

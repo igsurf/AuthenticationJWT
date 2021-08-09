@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Auth.Models;
 using System;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Auth.Services;
 using Auth.Repositories;
+using FluentValidation.Results;
 
 namespace Auth.Controllers
 {
@@ -33,25 +32,51 @@ namespace Auth.Controllers
             };
         }
 
-        [HttpGet]
-        [Route("anonymous")]
+        [HttpPost]
+        [Route("validate")]
         [AllowAnonymous]
-        public string Anonymous() => "Anônimo";
+        public async Task<ActionResult<dynamic>> ValidatePassword([FromBody]User model) 
+        {
+
+            var user = UserRepository.Get(model.Username, model.Password); 
+
+            ValidatePassword validator = new ValidatePassword();
+            ValidationResult results = validator.Validate(user);
+
+            if (results.IsValid)
+            {
+                return "allowed";
+            }
+            
+            return "not allowed";
+
+        }
+
+        [HttpPost]
+        [Route("createkey")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> CreatePassword([FromBody]User model) 
+        {
+
+            var user = UserRepository.Get(model.Username, model.Password); 
+            ValidatePassword validator = new ValidatePassword();
+            ValidationResult results = validator.Validate(user);
+
+            if (results.IsValid)
+            {
+                return "allowed";
+            }
+            
+            return "not allowed";
+
+        }
 
         [HttpGet]
         [Route("authenticated")]
         [Authorize]
         public string Authenticated() => String.Format("Autenticado - {0}", User.Identity.Name);
 
-        [HttpGet]
-        [Route("employee")]
-        [Authorize(Roles = "employee,manager")]
-        public string Employee() => "Funcionário";
 
-        [HttpGet]
-        [Route("manager")]
-        [Authorize(Roles = "manager")]
-        public string Manager() => "Gerente";
 
     }
 }

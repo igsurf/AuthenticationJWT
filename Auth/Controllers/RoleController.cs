@@ -35,7 +35,7 @@ namespace Auth.Controllers
         }
 
         [HttpPost]
-        [Route("validate")]
+        [Route("validatekey")]
         [AllowAnonymous]
         public async Task<ActionResult<dynamic>> ValidatePassword([FromBody]User model) 
         {
@@ -56,7 +56,7 @@ namespace Auth.Controllers
 
         [HttpPost]
         [Route("createkey")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult<dynamic>> CreatePassword( [FromServices] DataContext context,
             [FromBody]User model)  
         {

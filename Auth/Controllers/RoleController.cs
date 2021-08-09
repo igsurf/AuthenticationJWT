@@ -68,19 +68,10 @@ namespace Auth.Controllers
                return model;
 
            }
+           else {
 
-           // var user = UserRepository.Get(model.Username, model.Password); 
-           // ValidatePassword validator = new ValidatePassword();
-            //ValidationResult results = validator.Validate(user);
-
-            // if (results.IsValid)
-            // {
-            //     return "allowed";
-            // }
-
-            
-            
-            return "not allowed";
+               return BadRequest(ModelState);
+           }    
 
         }
 

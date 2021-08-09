@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Auth.Services;
 using Auth.Repositories;
 using FluentValidation.Results;
+using Auth.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Controllers
 {
@@ -55,19 +57,55 @@ namespace Auth.Controllers
         [HttpPost]
         [Route("createkey")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> CreatePassword([FromBody]User model) 
+        public async Task<ActionResult<dynamic>> CreatePassword( [FromServices] DataContext context,
+            [FromBody]User model)  
         {
+           if (ModelState.IsValid)
+           {
 
-            var user = UserRepository.Get(model.Username, model.Password); 
-            ValidatePassword validator = new ValidatePassword();
-            ValidationResult results = validator.Validate(user);
+               context.Users.Add(model);
+               await context.SaveChangesAsync();
+               return model;
 
-            if (results.IsValid)
-            {
-                return "allowed";
-            }
+           }
+
+           // var user = UserRepository.Get(model.Username, model.Password); 
+           // ValidatePassword validator = new ValidatePassword();
+            //ValidationResult results = validator.Validate(user);
+
+            // if (results.IsValid)
+            // {
+            //     return "allowed";
+            // }
+
+            
             
             return "not allowed";
+
+        }
+
+
+        [HttpGet]
+        [Route("listkey")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> ListarUsuarios( [FromServices] DataContext context)  
+        {
+           var users = await context.Users.ToListAsync();
+
+           return users;
+
+           // var user = UserRepository.Get(model.Username, model.Password); 
+           // ValidatePassword validator = new ValisdatePassword();
+            //ValidationResult results = validator.Validate(user);
+
+            // if (results.IsValid)
+            // {
+            //     return "allowed";
+            // }
+
+            
+            
+            // return "not allowed";
 
         }
 

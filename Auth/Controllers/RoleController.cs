@@ -28,7 +28,8 @@ namespace Auth.Controllers
             return new
             {
                 user = user,
-                token = token
+                token = token.TokenNumber,
+                expirationTime = token.ExpiratioNTime
             };
         }
 

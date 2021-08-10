@@ -24,7 +24,7 @@ namespace Auth.Tests
         {
 
             //string input = "wooooooowo happppppppyff";
-            string input = "";
+            string input = "e#";
             
 
             var resultValidaSequence = StringCommons.IsValidSequence(input);

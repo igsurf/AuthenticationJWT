@@ -23,13 +23,19 @@ namespace Auth.Tests
         public void CreatePassword()
         {
 
-            string input = "wooooooowo happppppppyff";
-            var result = StringCommons.IsValidSequence(input);
-            result = StringCommons.HasValidSpecialChar(input);
+            //string input = "wooooooowo happppppppyff";
+            string input = "";
+            
+
+            var resultValidaSequence = StringCommons.IsValidSequence(input);
+            Console.WriteLine("IsvalidSequence {0}", resultValidaSequence);
+            var resultHasSpecialChar = StringCommons.HasValidSpecialChar(input);
+            Console.WriteLine("HasSpecialChar {0}", resultHasSpecialChar);
+
 
             Console.Read();
 
-            Assert.True(result);
+            Assert.True(resultHasSpecialChar);
 
         }
         

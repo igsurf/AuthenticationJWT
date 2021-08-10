@@ -48,7 +48,10 @@ namespace Auth.Controllers
 
             if (results.IsValid)
             {
-                return "True";
+                return new
+            {
+                validado = true,
+            };
             }
             else
             {
@@ -79,7 +82,7 @@ namespace Auth.Controllers
 
 
         [HttpGet]
-        [Route("listkey")]
+       // [Route("listkey")]
         [AllowAnonymous]
         public async Task<ActionResult<dynamic>> ListarUsuarios( [FromServices] DataContext context)  
         {

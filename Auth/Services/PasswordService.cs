@@ -18,7 +18,7 @@ namespace Auth.Services
 
            RuleFor(user => user.Password)
            .Must(d => d.HasValidSpecialChar())
-           .WithMessage("Sem o caracter especial");
+           .WithMessage("Sem o caracter especial válido");
          
         }
 

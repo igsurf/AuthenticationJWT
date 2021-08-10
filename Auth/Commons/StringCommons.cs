@@ -7,28 +7,29 @@ namespace Auth.Commons
 
         public static bool IsValidSequence (this string input)
         {
+            var result = true;
             var matches = Regex.Matches(input, @"(.)\1+");
-            for (int i = 0; i < matches.Count; i++)
-            {
-                if (matches[i].Length > 1)
-                return false;
-                //...
-            }
-        return true;
 
+                if (matches.Count > 1)
+                {
+                result = false;
+                }
+
+                //...
+
+        return result;
         }
 
         public static bool HasValidSpecialChar (this string input)
         {
+            var result = false;
             var matches = Regex.Matches(input, @"[@#_-e]");
-            for (int i = 0; i < matches.Count; i++)
-            {
-                if (matches[i].Length > 1)
-                return true;
-                //...
-            }
-        return false;
-
+           
+                if (matches.Count > 1)
+                {
+                result = true;
+                }
+        return result;
         }
         
     }

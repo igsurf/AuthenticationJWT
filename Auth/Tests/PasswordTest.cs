@@ -13,16 +13,6 @@ namespace Auth.Tests
         public void ValidatePassword()
         {
             var result = string.Empty;
-            var user = new User();
-            user.Username = "robin";
-            user.Role = "robin";
-            
-
-           
-
-
-
-            //var result = "";
         
             Assert.Equal("", result);
         
@@ -33,16 +23,12 @@ namespace Auth.Tests
         public void CreatePassword()
         {
 
-            string input = "wooooooowo happppppppyff@";
+            string input = "wooooooowo happppppppyff";
             var result = StringCommons.IsValidSequence(input);
             result = StringCommons.HasValidSpecialChar(input);
 
             Console.Read();
 
-            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
-            DbContext db = new DbContext(optionsBuilder.Options);
-
-        
             Assert.True(result);
 
         }

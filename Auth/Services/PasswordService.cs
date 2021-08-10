@@ -1,5 +1,5 @@
+using Auth.Commons;
 using Auth.Models;
-using System;
 using FluentValidation;
 
 namespace Auth.Services
@@ -8,19 +8,29 @@ namespace Auth.Services
     {
         public ValidatePassword()
         {
-           RuleFor(user => user.Password).NotNull().WithMessage("ERRO LEGAL");
+           RuleFor(user => user.Password)
+           .NotNull()
+           .WithMessage("Necessário indicar um valor");
+           
+           RuleFor(user => user.Password)
+           .Must(d => d.IsValidSequence())
+           .WithMessage("Sequencia inválida");
+
+           RuleFor(user => user.Password)
+           .Must(d => d.HasValidSpecialChar())
+           .WithMessage("Sem o caracter especial");
          
         }
 
 
         public static bool CreatePassword(User user)
         {
-
             
-
             var validation = true;
 
             return validation;
         }
+
+
     }
 }

@@ -1,7 +1,8 @@
 using Xunit;
 using Auth.Models;
-using Auth.Services;
-using FluentValidation.Results;
+using System;
+using Microsoft.EntityFrameworkCore;
+using Auth.Commons;
 
 namespace Auth.Tests
 
@@ -17,55 +18,33 @@ namespace Auth.Tests
             user.Role = "robin";
             
 
-            ValidatePassword validator = new ValidatePassword();
-            ValidationResult results = validator.Validate(user);
+           
 
-            if(!results.IsValid)
-            {
-                foreach(var failure in results.Errors) 
-                
-                {
-                  result =   failure.PropertyName + failure.ErrorMessage;
-                }
-            }
+
 
             //var result = "";
         
             Assert.Equal("", result);
         
-        //When
-        
-        //Then
+
         }
 
         [Fact]
         public void CreatePassword()
         {
-            var result = string.Empty;
-            var user = new User();
-            user.Username = "robin";
-            user.Role = "robin";
 
-            
-            ValidatePassword validator = new ValidatePassword();
-            ValidationResult results = validator.Validate(user);
+            string input = "wooooooowo happppppppyff@";
+            var result = StringCommons.IsValidSequence(input);
+            result = StringCommons.HasValidSpecialChar(input);
 
-             if(!results.IsValid)
-            {
-                foreach(var failure in results.Errors) 
-                
-                {
-                  result =   failure.PropertyName + failure.ErrorMessage;
-                }
-            }
+            Console.Read();
 
-            //var result = "";
+            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+            DbContext db = new DbContext(optionsBuilder.Options);
+
         
-            Assert.Equal("", result);
-        
-        //When
-        
-        //Then
+            Assert.True(result);
+
         }
         
     }

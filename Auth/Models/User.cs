@@ -10,6 +10,8 @@ namespace Auth.Models
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [MinLength(15, ErrorMessage = "Digite 15 caracteres")]
+       // [RegularExpression(@"^[!@]$")]
+        // [RegularExpression(@"^[(.)\1+]{1,40}$", ErrorMessage = "Bulhufas")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -20,5 +22,7 @@ namespace Auth.Models
         public string PasswordConfirmation {get; set;}
 
         public string Role { get; set; }
+
+        public bool Validado {get; set;}
     }
 }

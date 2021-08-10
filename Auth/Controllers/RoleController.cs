@@ -30,6 +30,7 @@ namespace Auth.Controllers
             {
                 user = user,
                 token = token.TokenNumber,
+                validado = true,
                 expirationTime = token.ExpiratioNTime
             };
         }
@@ -40,17 +41,19 @@ namespace Auth.Controllers
         public async Task<ActionResult<dynamic>> ValidatePassword([FromBody]User model) 
         {
 
-            var user = UserRepository.Get(model.Username, model.Password); 
+            //var user = UserRepository.Get(model.Username, model.Password); 
 
             ValidatePassword validator = new ValidatePassword();
-            ValidationResult results = validator.Validate(user);
+            ValidationResult results = validator.Validate(model);
 
             if (results.IsValid)
             {
-                return "allowed";
+                return "True";
             }
-            
-            return "not allowed";
+            else
+            {
+                return BadRequest(results.ToString());
+            }
 
         }
 
@@ -58,11 +61,10 @@ namespace Auth.Controllers
         [Route("createkey")]
         [Authorize]
         public async Task<ActionResult<dynamic>> CreatePassword( [FromServices] DataContext context,
-            [FromBody]User model)  
+            [FromBody] User model)  
         {
            if (ModelState.IsValid)
            {
-
                context.Users.Add(model);
                await context.SaveChangesAsync();
                return model;

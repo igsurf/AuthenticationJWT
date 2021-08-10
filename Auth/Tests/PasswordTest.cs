@@ -3,14 +3,15 @@ using Auth.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Auth.Commons;
+using System.Collections.Generic;
 
 namespace Auth.Tests
 
 {
     public class PasswordTest
     {
-        [Fact]
-        public void ValidatePassword()
+        [Fact(Skip = "FECHANDO IMPLEMENTAÇÃO")]
+        public void CreatePassword()
         {
             var result = string.Empty;
         
@@ -19,25 +20,27 @@ namespace Auth.Tests
 
         }
 
-        [Fact]
-        public void CreatePassword()
-        {
+        [Theory(DisplayName = "VALIDANDO SENHAS")]
+        [MemberData(nameof(PasswordList))]
 
-            //string input = "wooooooowo happppppppyff";
-            string input = "e#";
-            
+        public void ValidatePassword(User user)
+        {              
 
-            var resultValidaSequence = StringCommons.IsValidSequence(input);
-            Console.WriteLine("IsvalidSequence {0}", resultValidaSequence);
-            var resultHasSpecialChar = StringCommons.HasValidSpecialChar(input);
-            Console.WriteLine("HasSpecialChar {0}", resultHasSpecialChar);
-
+            var resultValidaSequence = StringCommons.IsValidSequence(user.Password);
+            var resultHasSpecialChar = StringCommons.HasValidSpecialChar(user.Password);
 
             Console.Read();
 
-            Assert.True(resultHasSpecialChar);
-
+            Assert.True(resultHasSpecialChar && resultValidaSequence);
         }
+
+
+        public static IEnumerable<object[]> PasswordList => new []
+        {
+            //new [] {new User {Password = "wooooooowo happppppppyff" }},
+            new [] {new User {Password = "ee%" }}
+            //new [] {new User {Password = "2" }}
+        };
         
     }
 }

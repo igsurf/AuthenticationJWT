@@ -23,7 +23,7 @@ namespace Auth.Commons
         public static bool HasValidSpecialChar (this string input)
         {
             var result = false;
-            var matches = Regex.Matches(input, @"[@#_-e]");
+            var matches = Regex.Matches(input, @"[@#_-!]");
            
                 if (matches.Count > 1)
                 {

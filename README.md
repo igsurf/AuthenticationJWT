@@ -6,7 +6,7 @@ Project Template
 
 </h1>
 
-<p  align="center">Project C# Blah blah blah <br/>.</p>
+<p  align="center">Project C# <br/>.</p>
 
   
 
